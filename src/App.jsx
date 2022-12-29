@@ -18,6 +18,8 @@ function App() {
     setUser({
       id: 1,
       name: "john",
+      permission: ["analize"],
+      roles: ["normal"],
     });
   };
 
@@ -34,21 +36,36 @@ function App() {
       )}
 
       <Routes>
-        <Route index element={<Index />}></Route>
-        <Route path="/landing" element={<Index />}></Route>
-        // ruta protegida por protectedRoute
+        <Route index element={<Index />} />
+        <Route path="/landing" element={<Index />} />
+        // ruta protegida por protectedRoute | outlet
+        <Route element={<ProtectedRoute isAllowed={!!user} />}>
+          <Route path="/home" element={<UserHome />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        // ruta protegida por protectedRoute | children
         <Route
-          path="/home"
+          path="/analytics"
           element={
-            <ProtectedRoute user={user} redirecTo="/">
-              {" "}
-              <UserHome />{" "}
+            <ProtectedRoute
+              isAllowed={!!user && user.permission.includes("analize")}
+              redirecTo="/home"
+            >
+              <Analytics />
             </ProtectedRoute>
           }
         />
-        <Route path="/dashboard" element={<Dashboard />}></Route>
-        <Route path="/analytics" element={<Analytics />}></Route>
-        <Route path="/admin" element={<Admin />}></Route>
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute
+              isAllowed={!!user && user.roles.includes("admin")}
+              redirecTo="/home"
+            >
+              <Admin />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
