@@ -1,12 +1,13 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-function ProtectedRoute({ children, user, redirecTo = "/landing" }) {
-  if (!user) return <Navigate to={redirecTo} />;
+function ProtectedRoute({ isAllowed, redirecTo = "/landing", children }) {
 
-  console.log(user);
+  if (!isAllowed) return <Navigate to={redirecTo} />;
 
-  return children;
+  console.log(isAllowed);
+
+  return children ? children : <Outlet />;
 }
 
 export default ProtectedRoute;
