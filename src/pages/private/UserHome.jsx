@@ -1,9 +1,9 @@
-import React from 'react'
+import { Navigate } from "react-router-dom";
 
 function UserHome() {
-  return (
-    <div>UserHome (private)</div>
-  )
+
+
+  return <div>UserHome (private)</div>;
 }
 
-export default UserHome
+export default UserHome;
