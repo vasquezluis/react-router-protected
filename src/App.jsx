@@ -8,6 +8,8 @@ import Analytics from "./pages/private/Analytics";
 import Admin from "./pages/private/Admin";
 import Navbar from "./components/Navbar";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
 function App() {
   const [user, setUser] = useState(null);
 
@@ -34,8 +36,16 @@ function App() {
       <Routes>
         <Route index element={<Index />}></Route>
         <Route path="/landing" element={<Index />}></Route>
-
-        <Route path="/home" element={<UserHome />}></Route>
+        // ruta protegida por protectedRoute
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute user={user} redirecTo="/">
+              {" "}
+              <UserHome />{" "}
+            </ProtectedRoute>
+          }
+        />
         <Route path="/dashboard" element={<Dashboard />}></Route>
         <Route path="/analytics" element={<Analytics />}></Route>
         <Route path="/admin" element={<Admin />}></Route>
