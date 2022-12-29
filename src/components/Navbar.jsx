@@ -8,7 +8,7 @@ function Navbar() {
           <Link to="/landing">Landing</Link>
         </li>
         <li>
-          <Link to="/home">Home</Link>
+          <Link to="/home">UserHome</Link>
         </li>
         <li>
           <Link to="/dashboard">Dashboard</Link>
